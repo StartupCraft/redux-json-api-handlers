@@ -4,6 +4,14 @@ export default {
       key: 'addOne',
       title: 'add singular entity',
     },
+    deleteOne: {
+      key: 'deleteOne',
+      title: 'delete singular entity',
+    },
+    deleteMany: {
+      key: 'deleteMany',
+      title: 'delete multiple entities',
+    },
   },
   relations: {
     addOne: {

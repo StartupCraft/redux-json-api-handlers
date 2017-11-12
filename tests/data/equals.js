@@ -2,7 +2,7 @@ import tests from '../tests'
 
 export default {
   entity: {
-    [tests.relations.addOne.key]: {
+    [tests.entity.addOne.key]: {
       isLoaded: true,
       isLoading: false,
       posts: {
@@ -14,6 +14,19 @@ export default {
           },
         },
         '3': { id: 3 },
+      },
+    },
+    [tests.entity.deleteOne.key]: {
+      isLoaded: true,
+      isLoading: false,
+      posts: {
+        '1': {
+          id: 1,
+          relationships: {
+            comments: { data: [{ id: 1, type: 'comments' }] },
+            user: { data: { id: 1, type: 'users' } },
+          },
+        },
       },
     },
   },

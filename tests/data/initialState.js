@@ -63,6 +63,6 @@ export default Immutable({
       },
     },
     isLoading: false,
-    isLoaded: true,
+    isLoaded: false,
   },
 })

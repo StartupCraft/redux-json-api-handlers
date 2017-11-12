@@ -1,4 +1,4 @@
-import { createLoadHandler } from '../src/'
+import { createLoadHandler, createDeleteHandler } from '../src/'
 
 import tests from './tests'
 import actions from './data/actions'
@@ -15,5 +15,14 @@ describe('Entities', () => {
     )
 
     expect(posts).toEqual(equals.entity[tests.entity.addOne.key])
+  })
+
+  test(tests.entity.deleteOne.title, () => {
+    posts = createDeleteHandler('posts')(
+      posts,
+      actions.entity[tests.entity.deleteOne.key],
+    )
+
+    expect(posts).toEqual(equals.entity[tests.entity.deleteOne.key])
   })
 })

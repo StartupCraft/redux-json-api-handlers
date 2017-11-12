@@ -13,6 +13,12 @@ export default {
         },
       },
     },
+    [tests.entity.deleteOne.key]: {
+      payload: {
+        data: {},
+        deletedId: 3,
+      },
+    },
   },
   relations: {
     [tests.relations.addOne.key]: {
