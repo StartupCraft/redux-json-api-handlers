@@ -1,17 +1,18 @@
 {
   "name": "json-api-handlers",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "JSON.API data and relationships handlers",
-  "main": "./src/index.js",
+  "main": "./lib/index.js",
   "repository": "https://github.com/StartupCraft/json-api-handlers.git",
   "author": "George Viazemsky <code@and.graphics>",
   "license": "MIT",
   "scripts": {
-    "build": "cross-env NODE_ENV=production styleguidist build && react-app-rewired build",
+    "build:es6": "babel src/*.js --out-dir lib",
     "test": "jest",
     "lint": "eslint src tests",
     "lint:fix": "eslint src tests --fix",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "prepublish": "yarn build:es6"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,json,scss,css}": [
@@ -41,9 +42,13 @@
     "seamless-immutable": "^7.1.2"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.1",
     "babel-jest": "^21.2.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2016": "^6.24.1",
+    "babel-preset-latest": "^6.24.1",
     "codecov": "^3.0.0",
     "eslint": "^4.9.0",
     "eslint-config-airbnb-base": "^12.1.0",
