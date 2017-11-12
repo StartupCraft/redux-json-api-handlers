@@ -1,4 +1,10 @@
 export default {
+  entity: {
+    addOne: {
+      key: 'addOne',
+      title: 'add singular entity',
+    },
+  },
   relations: {
     addOne: {
       key: 'addOne',

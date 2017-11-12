@@ -1,0 +1,11 @@
+src
+tests
+coverage
+.idea
+.babelrc
+.editorconfig
+.env
+.eslintrc.js
+.gitignore
+.prettierignore
+.prettierrc

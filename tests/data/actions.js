@@ -1,6 +1,19 @@
 import tests from '../tests'
 
 export default {
+  entity: {
+    [tests.entity.addOne.key]: {
+      payload: {
+        data: {
+          posts: {
+            3: {
+              id: 3,
+            },
+          },
+        },
+      },
+    },
+  },
   relations: {
     [tests.relations.addOne.key]: {
       payload: {

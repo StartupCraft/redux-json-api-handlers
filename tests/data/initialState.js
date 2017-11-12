@@ -1,41 +1,68 @@
 import Immutable from 'seamless-immutable'
 
 export default Immutable({
-  posts: {
-    1: {
-      id: 1,
-      relationships: {
-        comments: {
-          data: [
-            {
+  data: {
+    posts: {
+      1: {
+        id: 1,
+        relationships: {
+          comments: {
+            data: [
+              {
+                id: 1,
+                type: 'comments',
+              },
+            ],
+          },
+          user: {
+            data: {
               id: 1,
-              type: 'comments',
+              type: 'users',
             },
-          ],
-        },
-        user: {
-          data: {
-            id: 1,
-            type: 'users',
           },
         },
       },
     },
+    shifts: {
+      10: {
+        id: '10',
+        attributes: {
+          name: 'A shift',
+        },
+        relationships: { shiftsJobs: { data: [] }, jobs: { data: [] } },
+      },
+      11: {
+        id: '11',
+        attributes: {
+          name: 'A shift',
+        },
+        relationships: { shiftsJobs: { data: [] }, jobs: { data: [] } },
+      },
+    },
   },
-  shifts: {
-    10: {
-      id: '10',
-      attributes: {
-        name: 'A shift',
+  posts: {
+    posts: {
+      1: {
+        id: 1,
+        relationships: {
+          comments: {
+            data: [
+              {
+                id: 1,
+                type: 'comments',
+              },
+            ],
+          },
+          user: {
+            data: {
+              id: 1,
+              type: 'users',
+            },
+          },
+        },
       },
-      relationships: { shiftsJobs: { data: [] }, jobs: { data: [] } },
     },
-    11: {
-      id: '11',
-      attributes: {
-        name: 'A shift',
-      },
-      relationships: { shiftsJobs: { data: [] }, jobs: { data: [] } },
-    },
+    isLoading: false,
+    isLoaded: true,
   },
 })
