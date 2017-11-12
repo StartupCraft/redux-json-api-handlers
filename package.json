@@ -1,16 +1,14 @@
 {
   "name": "redux-json-api-handlers",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "JSON.API data and relationships handlers",
   "main": "./src/index.js",
   "repository": "https://github.com/StartupCraft/json-api-handlers.git",
   "author": "George Viazemsky <code@and.graphics>",
   "license": "MIT",
-  "private": true,
   "scripts": {
     "build": "cross-env NODE_ENV=production styleguidist build && react-app-rewired build",
     "test": "jest",
-    "stylelint": "stylelint src/*/**.js",
     "lint": "eslint src tests",
     "lint:fix": "eslint src tests --fix",
     "precommit": "lint-staged"
