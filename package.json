@@ -1,6 +1,6 @@
 {
   "name": "json-api-handlers",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "JSON.API data and relationships handlers",
   "main": "./lib/index.js",
   "repository": "https://github.com/StartupCraft/json-api-handlers.git",
