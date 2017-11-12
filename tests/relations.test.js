@@ -1,90 +1,37 @@
-import ReduxService from '../src/'
+import { createRelationAddHandler } from '../src/'
 
-import { addCommentAction, addManyCommentsAction } from './data/actions'
+import tests from './tests'
+import actions from './data/actions'
+import equals from './data/equals'
 import initialState from './data/initialState'
 
-let state = initialState
+let { posts, shifts } = initialState
 
-describe('Relations suite', () => {
-  test('handle singular relation add test', () => {
-    state = ReduxService.createRelationAddHandler('comments', 'post')(
-      initialState,
-      addCommentAction,
+describe('Relations', () => {
+  test(tests.relations.addOne.title, () => {
+    posts = createRelationAddHandler('comments', 'post')(
+      posts,
+      actions.relations[tests.relations.addOne.key],
     )
 
-    expect(state).toEqual({
-      1: {
-        id: 1,
-        relationships: {
-          comments: {
-            data: [
-              {
-                id: 1,
-                type: 'comments',
-              },
-              {
-                id: 2,
-                type: 'comments',
-              },
-              {
-                id: 3,
-                type: 'comments',
-              },
-            ],
-          },
-          user: {
-            data: {
-              id: 1,
-              type: 'users',
-            },
-          },
-        },
-      },
-    })
+    expect(posts).toEqual(equals.relations[tests.relations.addOne.key])
   })
 
-  test('handle many relations add test', () => {
-    state = ReduxService.createRelationAddHandler('comments', 'post')(
-      state,
-      addManyCommentsAction,
+  test(tests.relations.addMany.title, () => {
+    posts = createRelationAddHandler('comments', 'post')(
+      posts,
+      actions.relations[tests.relations.addMany.key],
     )
 
-    expect(state).toEqual({
-      1: {
-        id: 1,
-        relationships: {
-          comments: {
-            data: [
-              {
-                id: 1,
-                type: 'comments',
-              },
-              {
-                id: 2,
-                type: 'comments',
-              },
-              {
-                id: 3,
-                type: 'comments',
-              },
-              {
-                id: 4,
-                type: 'comments',
-              },
-              {
-                id: 5,
-                type: 'comments',
-              },
-            ],
-          },
-          user: {
-            data: {
-              id: 1,
-              type: 'users',
-            },
-          },
-        },
-      },
-    })
+    expect(posts).toEqual(equals.relations[tests.relations.addMany.key])
+  })
+
+  test(tests.relations.addManyToMany.title, () => {
+    shifts = createRelationAddHandler('shiftsJobs', 'shift')(
+      shifts,
+      actions.relations[tests.relations.addManyToMany.key],
+    )
+
+    expect(shifts).toEqual(equals.relations[tests.relations.addManyToMany.key])
   })
 })
