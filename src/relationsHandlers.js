@@ -18,7 +18,11 @@ export const createRelationAddHandler = (type, relationName) => (
   state,
   { payload },
 ) => {
-  const createdRelations = Object.values(payload.data[type])
+  const dataType = get(payload, `data.${type}`)
+
+  if (!dataType) return state
+
+  const createdRelations = Object.values(dataType)
   const updatedRelativesMap = new Map()
 
   createdRelations
@@ -34,7 +38,7 @@ export const createRelationAddHandler = (type, relationName) => (
     const updatedRelative = {
       ...relative,
       relationships: {
-        // Relationships spread ommitted since lodash.merge preserves other rel types.
+        // Relationships spread omitted since lodash.merge preserves other rel types.
         [type]: {
           data: [...relative.relationships[type].data, newRelation],
         },
@@ -50,7 +54,8 @@ export const createRelationAddHandler = (type, relationName) => (
     updatedRelatives.push({ [key]: value })
   }
 
-  if (!updatedRelatives) return state
+  // TODO: this line does nothing, commented by now
+  // if (!updatedRelatives) return state
 
   return merge({}, state, ...updatedRelatives)
 }

@@ -1,4 +1,4 @@
-import { createRelationAddHandler } from '../src/'
+import { createRelationAddHandler, createRelationDeleteHandler } from '../src/'
 
 import tests from './tests'
 import actions from './data/actions'
@@ -11,6 +11,14 @@ let postsState = data.posts
 let shiftsState = data.shifts
 
 describe('Relations', () => {
+  test(tests.relations.addOneWithoutPayload.title, () => {
+    postsState = createRelationAddHandler('comments', 'post')(postsState, {
+      payload: null,
+    })
+
+    expect(postsState).toEqual(data.posts)
+  })
+
   test(tests.relations.addOne.title, () => {
     postsState = createRelationAddHandler('comments', 'post')(
       postsState,
@@ -38,5 +46,22 @@ describe('Relations', () => {
     expect(shiftsState).toEqual(
       equals.relations[tests.relations.addManyToMany.key],
     )
+  })
+
+  test(tests.relations.deleteOneWithoutPayload.title, () => {
+    const shifts = createRelationDeleteHandler('shiftsJobs')(data.shifts, {
+      payload: null,
+    })
+
+    expect(shifts).toEqual(data.shifts)
+  })
+
+  test(tests.relations.deleteOne.title, () => {
+    shiftsState = createRelationDeleteHandler('shiftsJobs')(
+      shiftsState,
+      actions.relations[tests.relations.deleteOne.key],
+    )
+
+    expect(shiftsState).toEqual(equals.relations[tests.relations.deleteOne.key])
   })
 })

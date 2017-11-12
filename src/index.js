@@ -4,9 +4,12 @@ import {
   createRelationDeleteHandler,
 } from './relationsHandlers'
 
+import mergers from './mergers'
+
 export {
   createLoadHandler,
   createDeleteHandler,
   createRelationAddHandler,
   createRelationDeleteHandler,
+  mergers,
 }

@@ -62,7 +62,10 @@ export default Immutable({
         },
       },
     },
+    postIds: [1],
     isLoading: false,
     isLoaded: false,
+    isLoadedPostIds: false,
+    isLoadingPostIds: false,
   },
 })

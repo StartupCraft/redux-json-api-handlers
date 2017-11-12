@@ -15,9 +15,11 @@ export default {
     },
     [tests.entity.deleteOne.key]: {
       payload: {
-        data: {},
-        deletedId: 3,
+        deletedId: 1,
       },
+    },
+    [tests.entity.deleteOneWithoutDeletedId.key]: {
+      payload: {},
     },
   },
   relations: {
@@ -94,6 +96,12 @@ export default {
             },
           },
         },
+      },
+    },
+    [tests.relations.deleteOne.key]: {
+      payload: {
+        deletedId: '16',
+        relationId: '10',
       },
     },
   },

@@ -4,7 +4,7 @@ Initial commit. Readme and usage guide will be added later
 
 ## Api methods
 
-#### `createLoadHandler(resourceType: string, options: object): nextState`
+### `createLoadHandler(resourceType: string, options: object): nextState`
 Use it for handle success data loading
 
 Options: 
@@ -16,7 +16,7 @@ const options = {
 }
 ```
 
-##### Simple example
+#### Simple example
 Initial state looks like: 
 ```js
 state = {
@@ -47,7 +47,7 @@ state = {
 }
 ```
 
-##### Custom example
+#### Custom example
 Initial state looks like: 
 ```js
 state = {
@@ -58,6 +58,7 @@ state = {
   }
 }
 ```
+Handler:
 ```js
 const handlers = {
   [LOAD_POSTS.SUCCESS]: createLoadHandler('posts', { mapToKey: 'postIds', idsOnly: true })
@@ -75,19 +76,12 @@ state = {
 ```
 
 
-#### `createDeleteHandler(resourceType: string, options: object): nextState`
+### `createDeleteHandler(stateKey: string): nextState`
 Use it for handle delete data.
 
 Action payload should have `deletedId` param
 
-Options: 
-```js
-const options = {
-  mapToKey: bool|string,  // default: false, map result to custom reducer key
-}
-```
-
-##### Simple example
+#### Simple example
 Initial state looks like: 
 ```js
 state = {
@@ -103,6 +97,7 @@ state = {
   }
 }
 ```
+Handler:
 ```js
 const handlers = {
   [DELETE_POST.SUCCESS]: createDeleteHandler('posts')
@@ -121,7 +116,7 @@ state = {
 }
 ```
 
-##### Custom example
+#### Custom example
 Initial state looks like: 
 ```js
 state = {
@@ -132,7 +127,7 @@ state = {
 ```
 ```js
 const handlers = {
-  [DELETE_POST.SUCCESS]: createDeleteHandler('posts', { mapToKey: 'postIds' })
+  [DELETE_POST.SUCCESS]: createDeleteHandler('postIds')
 }
 ```
 Resulted state looks like: 

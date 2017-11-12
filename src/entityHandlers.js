@@ -1,3 +1,6 @@
+// @flow
+import without from 'lodash/without'
+import isArray from 'lodash/isArray'
 import reduce from 'lodash/reduce'
 import merge from 'lodash/merge'
 import map from 'lodash/map'
@@ -5,54 +8,67 @@ import get from 'lodash/get'
 
 import { capitalizeFirstLetter } from './helpers'
 
-const defaultOptions = {
+const defaultLoadOptions = {
   mapToKey: false,
   withLoading: true,
   idsOnly: false,
 }
 
-export const createLoadHandler = (resourceType, options) => (
-  state,
-  { payload },
-) => {
-  const { mapToKey, withLoading, idsOnly } = { ...defaultOptions, ...options }
+type LoadOptionsType = {
+  mapToKey?: string | boolean,
+  withLoading?: boolean,
+  idsOnly?: boolean,
+}
 
+export const createLoadHandler = (
+  resourceType: string,
+  options: LoadOptionsType,
+) => (state: any, { payload }: { payload: any }) => {
+  const { mapToKey, withLoading, idsOnly } = {
+    ...defaultLoadOptions,
+    ...options,
+  }
+
+  const payloadResource = get(payload, `data.${resourceType}`, false)
+
+  const mappedResourceType = mapToKey || resourceType
+
+  // $FlowFixMe
   const nextState = {
-    [mapToKey || resourceType]: merge(
-      {},
-      state[resourceType],
-      idsOnly
-        ? map(payload.data[resourceType], 'id')
-        : payload.data[resourceType],
-    ),
+    [mappedResourceType]: idsOnly
+      ? [...state[mappedResourceType], ...map(payloadResource, 'id')]
+      : merge({}, state[mappedResourceType], payloadResource),
   }
 
   if (withLoading) {
-    const add = mapToKey ? capitalizeFirstLetter(mapToKey) : ''
-    nextState[`isLoaded${add}`] = true
-    nextState[`isLoading${add}`] = false
+    const addKey = mapToKey ? capitalizeFirstLetter(mapToKey) : ''
+    nextState[`isLoaded${addKey}`] = true
+    nextState[`isLoading${addKey}`] = false
   }
 
   return state.merge(nextState)
 }
 
-export const createDeleteHandler = (resourceType, options) => (
-  state,
-  { payload },
+export const createDeleteHandler = (stateKey: string) => (
+  state: any,
+  { payload }: { payload: any },
 ) => {
-  const { mapToKey } = { ...defaultOptions, ...options }
   const deletedId = get(payload, 'deletedId')
 
+  const stateValue = state[stateKey]
+
   return state.merge({
-    [mapToKey || resourceType]: reduce(
-      state[resourceType],
-      (result, value, key) => {
-        if (value.id !== deletedId) {
-          return { ...result, [key]: value }
-        }
-        return { ...result }
-      },
-      {},
-    ),
+    [stateKey]: isArray(stateValue)
+      ? without(stateValue, deletedId)
+      : reduce(
+          stateValue,
+          (result, value, key) => {
+            if (value.id !== deletedId) {
+              return { ...result, [key]: value }
+            }
+            return { ...result }
+          },
+          {},
+        ),
   })
 }
