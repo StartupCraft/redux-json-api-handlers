@@ -1,7 +1,7 @@
 {
-  "name": "json-api-handlers",
+  "name": "redux-json-api-handlers",
   "version": "0.2.0",
-  "description": "JSON.API data and relationships handlers",
+  "description": "JSON-API entities and relationships handlers",
   "main": "./lib/index.js",
   "repository": "https://github.com/StartupCraft/json-api-handlers.git",
   "author": "George Viazemsky <code@and.graphics>",

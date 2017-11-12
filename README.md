@@ -1,4 +1,4 @@
-# json-api-handlers
+# redux-json-api-handlers
 
 Initial commit. Readme and usage guide will be added later
 
@@ -105,7 +105,7 @@ state = {
 ```
 ```js
 const handlers = {
-  [LOAD_POSTS.SUCCESS]: createDeleteHandler('posts')
+  [DELETE_POST.SUCCESS]: createDeleteHandler('posts')
 }
 ```
 Resulted state looks like: 
