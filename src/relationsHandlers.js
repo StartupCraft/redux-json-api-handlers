@@ -35,12 +35,13 @@ export const createRelationAddHandler = (type, relationName) => (
     const currentRelationId = getRelationId(relationName, current)
     const relative = updatedRelativesMap.get(currentRelationId)
     const newRelation = { id: current.id, type }
+    const existedRelations = get(relative, `relationships.${type}.data`)
     const updatedRelative = {
       ...relative,
       relationships: {
         // Relationships spread omitted since lodash.merge preserves other rel types.
         [type]: {
-          data: [...relative.relationships[type].data, newRelation],
+          data: [...existedRelations, newRelation],
         },
       },
     }
