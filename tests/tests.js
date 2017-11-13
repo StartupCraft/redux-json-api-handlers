@@ -42,6 +42,10 @@ export default {
       key: 'addOneWithoutPayload',
       title: 'add singular relation without payload',
     },
+    addOneWithoutRelation: {
+      key: 'addOneWithoutRelation',
+      title: 'add singular relation without payload',
+    },
     deleteOne: {
       key: 'deleteOne',
       title: 'delete singular relation',

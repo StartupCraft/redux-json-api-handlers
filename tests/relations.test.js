@@ -28,6 +28,15 @@ describe('Relations', () => {
     expect(postsState).toEqual(equals.relations[tests.relations.addOne.key])
   })
 
+  test(tests.relations.addOneWithoutRelation.title, () => {
+    postsState = createRelationAddHandler('comments', 'user')(
+      postsState,
+      actions.relations[tests.relations.addOne.key],
+    )
+
+    expect(postsState).toEqual(equals.relations[tests.relations.addOne.key])
+  })
+
   test(tests.relations.addMany.title, () => {
     postsState = createRelationAddHandler('comments', 'post')(
       postsState,

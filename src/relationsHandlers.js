@@ -33,9 +33,10 @@ export const createRelationAddHandler = (type, relationName) => (
 
   createdRelations.forEach(current => {
     const currentRelationId = getRelationId(relationName, current)
+    if (!currentRelationId) return
     const relative = updatedRelativesMap.get(currentRelationId)
     const newRelation = { id: current.id, type }
-    const existedRelations = get(relative, `relationships.${type}.data`)
+    const existedRelations = get(relative, `relationships.${type}.data`, {})
     const updatedRelative = {
       ...relative,
       relationships: {
@@ -52,11 +53,10 @@ export const createRelationAddHandler = (type, relationName) => (
   const updatedRelatives = []
   // eslint-disable-next-line no-restricted-syntax
   for (const [key, value] of updatedRelativesMap.entries()) {
-    updatedRelatives.push({ [key]: value })
+    if (key && value) {
+      updatedRelatives.push({ [key]: value })
+    }
   }
-
-  // TODO: this line does nothing, commented by now
-  // if (!updatedRelatives) return state
 
   return merge({}, state, ...updatedRelatives)
 }
