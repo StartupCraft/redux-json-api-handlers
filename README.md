@@ -13,6 +13,7 @@ const options = {
   mapToKey: bool|string,  // default: false, map result to custom reducer key
   withLoading: bool,      // default: true, enable/disable loading params
   singular: bool,         // default: false, get first value and store it
+  withReplace: bool,      // default: false, replace current values instead of merge it
 }
 ```
 
