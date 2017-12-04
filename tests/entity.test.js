@@ -7,7 +7,7 @@ import initialState from './data/initialState'
 
 const { posts } = initialState
 
-describe('Entities', () => {
+describe('Add singular entity', () => {
   // Add single entity
   test(tests.entity.addOne.title, () => {
     const nextState = createLoadHandler('posts', {
@@ -46,9 +46,9 @@ describe('Entities', () => {
 
     expect(nextState).toEqual(equals.entity[tests.entity.addOneWithReplace.key])
   })
+})
 
-  // Add multiple entity
-
+describe('Add multiple entities', () => {
   test(tests.entity.addMultiple.title, () => {
     const nextState = createLoadHandler('posts')(
       posts,
@@ -56,6 +56,17 @@ describe('Entities', () => {
     )
 
     expect(nextState).toEqual(equals.entity[tests.entity.addMultiple.key])
+  })
+
+  test(tests.entity.addMultipleWithReplace.title, () => {
+    const nextState = createLoadHandler('posts', { withReplace: true })(
+      posts,
+      actions.entity.addMultipleWithReplace,
+    )
+
+    expect(nextState).toEqual(
+      equals.entity[tests.entity.addMultipleWithReplace.key],
+    )
   })
 
   test(tests.entity.addMultipleWithoutLoading.title, () => {
@@ -77,9 +88,9 @@ describe('Entities', () => {
       equals.entity[tests.entity.addMultipleToOtherKey.key],
     )
   })
+})
 
-  // Delete one
-
+describe('Delete entity', () => {
   test(tests.entity.deleteOne.title, () => {
     const nextState = createDeleteHandler('posts')(
       posts,

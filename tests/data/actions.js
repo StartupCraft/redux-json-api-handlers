@@ -41,6 +41,20 @@ export default {
         },
       },
     },
+    addMultipleWithReplace: {
+      payload: {
+        data: {
+          posts: {
+            1: {
+              id: 1,
+            },
+            5: {
+              id: 5,
+            },
+          },
+        },
+      },
+    },
     deleteOne: {
       payload: {
         deletedId: 3,

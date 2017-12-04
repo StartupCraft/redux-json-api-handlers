@@ -20,6 +20,10 @@ export default {
       key: 'addMultiple',
       title: 'add multiple entities',
     },
+    addMultipleWithReplace: {
+      key: 'addMultipleWithReplace',
+      title: 'add multiple entities with replace',
+    },
     addMultipleWithoutLoading: {
       key: 'addMultipleWithoutLoading',
       title: 'add multiple entities without loading',

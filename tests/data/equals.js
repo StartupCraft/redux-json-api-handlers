@@ -58,6 +58,15 @@ export default {
       posts: [3, 1, 5],
       post: 1,
     },
+    [tests.entity.addMultipleWithReplace.key]: {
+      isLoaded: true,
+      isLoading: false,
+      isLoadedPostIds: false,
+      isLoadingPostIds: false,
+      postIds: [3],
+      posts: [1, 5],
+      post: 1,
+    },
     [tests.entity.addMultipleWithoutLoading.key]: {
       isLoaded: false,
       isLoading: false,

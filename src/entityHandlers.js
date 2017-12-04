@@ -6,6 +6,7 @@ import values from 'lodash/values'
 import uniq from 'lodash/uniq'
 import map from 'lodash/map'
 import get from 'lodash/get'
+import set from 'lodash/set'
 
 import { capitalizeFirstLetter } from './helpers'
 
@@ -13,19 +14,21 @@ const defaultLoadOptions = {
   mapToKey: false,
   withLoading: true,
   singular: false,
+  withReplace: false,
 }
 
 type LoadOptionsType = {
   mapToKey?: string | boolean,
   withLoading?: boolean,
   singular?: boolean,
+  withReplace: boolean,
 }
 
 export const createLoadHandler = (
   resourceType: string,
   options: LoadOptionsType,
 ) => (state: any, { payload }: { payload: any }) => {
-  const { mapToKey, withLoading, singular } = {
+  const { mapToKey, withLoading, singular, withReplace } = {
     ...defaultLoadOptions,
     ...options,
   }
@@ -36,12 +39,22 @@ export const createLoadHandler = (
 
   // $FlowFixMe
   const nextState = {
-    [mappedResourceType]: singular
-      ? get(values(payloadResource), '0.id')
-      : uniq([
-          ...get(state, mappedResourceType, []),
-          ...map(payloadResource, 'id'),
-        ]),
+    [mappedResourceType]: state[mappedResourceType],
+  }
+
+  if (singular) {
+    set(nextState, mappedResourceType, get(values(payloadResource), '0.id'))
+  } else {
+    set(
+      nextState,
+      mappedResourceType,
+      withReplace
+        ? map(payloadResource, 'id')
+        : uniq([
+            ...get(state, mappedResourceType, []),
+            ...map(payloadResource, 'id'),
+          ]),
+    )
   }
 
   if (withLoading) {

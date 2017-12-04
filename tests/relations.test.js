@@ -10,7 +10,7 @@ const { data } = initialState
 let postsState = data.posts
 let shiftsState = data.shifts
 
-describe('Relations', () => {
+describe('Add one relation', () => {
   test(tests.relations.addOneWithoutPayload.title, () => {
     postsState = createRelationAddHandler('comments', 'post')(postsState, {
       payload: null,
@@ -36,7 +36,9 @@ describe('Relations', () => {
 
     expect(postsState).toEqual(equals.relations[tests.relations.addOne.key])
   })
+})
 
+describe('Add multiple relations', () => {
   test(tests.relations.addMany.title, () => {
     postsState = createRelationAddHandler('comments', 'post')(
       postsState,
@@ -56,7 +58,9 @@ describe('Relations', () => {
       equals.relations[tests.relations.addManyToMany.key],
     )
   })
+})
 
+describe('Delete relation', () => {
   test(tests.relations.deleteOneWithoutPayload.title, () => {
     const shifts = createRelationDeleteHandler('shiftsJobs')(data.shifts, {
       payload: null,
