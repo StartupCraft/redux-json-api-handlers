@@ -2,7 +2,8 @@
 import without from 'lodash/without'
 import isArray from 'lodash/isArray'
 import reduce from 'lodash/reduce'
-import merge from 'lodash/merge'
+import values from 'lodash/values'
+import uniq from 'lodash/uniq'
 import map from 'lodash/map'
 import get from 'lodash/get'
 
@@ -11,20 +12,20 @@ import { capitalizeFirstLetter } from './helpers'
 const defaultLoadOptions = {
   mapToKey: false,
   withLoading: true,
-  idsOnly: false,
+  singular: false,
 }
 
 type LoadOptionsType = {
   mapToKey?: string | boolean,
   withLoading?: boolean,
-  idsOnly?: boolean,
+  singular?: boolean,
 }
 
 export const createLoadHandler = (
   resourceType: string,
   options: LoadOptionsType,
 ) => (state: any, { payload }: { payload: any }) => {
-  const { mapToKey, withLoading, idsOnly } = {
+  const { mapToKey, withLoading, singular } = {
     ...defaultLoadOptions,
     ...options,
   }
@@ -35,9 +36,12 @@ export const createLoadHandler = (
 
   // $FlowFixMe
   const nextState = {
-    [mappedResourceType]: idsOnly
-      ? [...state[mappedResourceType], ...map(payloadResource, 'id')]
-      : merge({}, state[mappedResourceType], payloadResource),
+    [mappedResourceType]: singular
+      ? get(values(payloadResource), '0.id')
+      : uniq([
+          ...get(state, mappedResourceType, []),
+          ...map(payloadResource, 'id'),
+        ]),
   }
 
   if (withLoading) {

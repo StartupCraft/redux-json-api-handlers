@@ -1,6 +1,6 @@
 # redux-json-api-handlers
 
-Initial commit. Readme and usage guide will be added later
+Redux JSON-API handlers V2. New api
 
 ## Api methods
 
@@ -12,7 +12,7 @@ Options:
 const options = {
   mapToKey: bool|string,  // default: false, map result to custom reducer key
   withLoading: bool,      // default: true, enable/disable loading params
-  idsOnly: bool           // default: false, map entities ids to array
+  singular: bool,         // default: false, get first value and store it
 }
 ```
 
@@ -38,11 +38,7 @@ state = {
   posts: {
     isLoaded: true,
     isLoading: false,
-    posts: {
-      '1': {
-        id: 1,
-      }
-    }
+    posts: [1]
   }
 }
 ```
@@ -54,14 +50,14 @@ state = {
   posts: {
     isLoadedPostIds: false,
     isLoadingPostIds: false,
-    postIds: []
+    post: null,
   }
 }
 ```
 Handler:
 ```js
 const handlers = {
-  [LOAD_POSTS.SUCCESS]: createLoadHandler('posts', { mapToKey: 'postIds', idsOnly: true })
+  [LOAD_POSTS.SUCCESS]: createLoadHandler('posts', { mapToKey: 'post', singular: true })
 }
 ```
 Resulted state looks like: 
@@ -70,7 +66,7 @@ state = {
   posts: {
     isLoadedPostIds: true,
     isLoadingPostIds: false,
-    postIds: ['1']
+    postIds: 1,
   }
 }
 ```
@@ -86,14 +82,7 @@ Initial state looks like:
 ```js
 state = {
   posts: {
-    posts: {
-      '1': {
-        id: 1,
-      },
-      '2': {
-        id: 2,
-      }
-    }
+    posts: [1, 2]
   }
 }
 ```
@@ -107,11 +96,7 @@ Resulted state looks like:
 ```js
 state = {
   posts: {
-    posts: {
-      '2': {
-        id: 2,
-      }
-    }
+    posts: [2]
   }
 }
 ```
@@ -121,20 +106,22 @@ Initial state looks like:
 ```js
 state = {
   posts: {
-    postIds: ['1', '2']
+    postIds: [1, 2]
   }
 }
 ```
 ```js
 const handlers = {
-  [DELETE_POST.SUCCESS]: createDeleteHandler('postIds')
+  [DELETE_POST.SUCCESS]: createDeleteHandler('posts', {
+    mapToKey: 'postIds',
+  })
 }
 ```
 Resulted state looks like: 
 ```js
 state = {
   posts: {
-    postIds: ['1']
+    postIds: [1]
   }
 }
 ```

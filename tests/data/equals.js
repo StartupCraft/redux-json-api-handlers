@@ -4,63 +4,87 @@ import initialState from './initialState'
 
 export default {
   entity: {
+    // ADD ONE
     [tests.entity.addOne.key]: {
-      isLoaded: true,
+      isLoaded: false,
       isLoading: false,
       isLoadedPostIds: false,
       isLoadingPostIds: false,
-      postIds: [1],
-      posts: {
-        '1': {
-          id: 1,
-          relationships: {
-            comments: { data: [{ id: 1, type: 'comments' }] },
-            user: { data: { id: 1, type: 'users' } },
-          },
-        },
-        '3': { id: 3 },
-      },
+      isLoadedPost: true,
+      isLoadingPost: false,
+      postIds: [3],
+      posts: [3],
+      post: 1,
     },
     [tests.entity.addOneWithoutLoading.key]: {
       isLoaded: false,
       isLoading: false,
       isLoadedPostIds: false,
       isLoadingPostIds: false,
-      postIds: [1],
-      posts: {
-        '1': {
-          id: 1,
-          relationships: {
-            comments: { data: [{ id: 1, type: 'comments' }] },
-            user: { data: { id: 1, type: 'users' } },
-          },
-        },
-        '3': { id: 3 },
-      },
+      postIds: [3],
+      posts: 1,
+      post: 1,
     },
     [tests.entity.addOneToOtherKey.key]: {
       isLoaded: false,
       isLoading: false,
+      isLoadedPostIds: false,
+      isLoadingPostIds: false,
+      isLoadedPostId: true,
+      isLoadingPostId: false,
+      postIds: [3],
+      posts: [3],
+      post: 1,
+      postId: 1,
+    },
+    [tests.entity.addOneWithReplace.key]: {
+      isLoaded: false,
+      isLoading: false,
+      isLoadedPostIds: false,
+      isLoadingPostIds: false,
+      isLoadedPost: true,
+      isLoadingPost: false,
+      postIds: [3],
+      posts: [3],
+      post: 3,
+    },
+    // MULTIPLE
+    [tests.entity.addMultiple.key]: {
+      isLoaded: true,
+      isLoading: false,
+      isLoadedPostIds: false,
+      isLoadingPostIds: false,
+      postIds: [3],
+      posts: [3, 1, 5],
+      post: 1,
+    },
+    [tests.entity.addMultipleWithoutLoading.key]: {
+      isLoaded: false,
+      isLoading: false,
+      isLoadedPostIds: false,
+      isLoadingPostIds: false,
+      postIds: [3],
+      posts: [3, 1, 5],
+      post: 1,
+    },
+    [tests.entity.addMultipleToOtherKey.key]: {
+      isLoaded: false,
+      isLoading: false,
       isLoadedPostIds: true,
       isLoadingPostIds: false,
-      posts: {
-        '1': {
-          id: 1,
-          relationships: {
-            comments: { data: [{ id: 1, type: 'comments' }] },
-            user: { data: { id: 1, type: 'users' } },
-          },
-        },
-      },
-      postIds: [1, 3],
+      postIds: [3, 1, 5],
+      posts: [3],
+      post: 1,
     },
+    // DELETE
     [tests.entity.deleteOne.key]: {
       isLoaded: false,
       isLoading: false,
       isLoadedPostIds: false,
       isLoadingPostIds: false,
-      postIds: [1],
-      posts: {},
+      postIds: [3],
+      posts: [],
+      post: 1,
     },
     [tests.entity.deleteOneFromOtherKey.key]: {
       isLoaded: false,
@@ -68,15 +92,8 @@ export default {
       isLoadedPostIds: false,
       isLoadingPostIds: false,
       postIds: [],
-      posts: {
-        '1': {
-          id: 1,
-          relationships: {
-            comments: { data: [{ id: 1, type: 'comments' }] },
-            user: { data: { id: 1, type: 'users' } },
-          },
-        },
-      },
+      posts: [3],
+      post: 1,
     },
     [tests.entity.deleteOneWithoutDeletedId.key]: initialState.posts,
   },

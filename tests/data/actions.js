@@ -2,7 +2,18 @@ import tests from '../tests'
 
 export default {
   entity: {
-    [tests.entity.addOne.key]: {
+    addOne: {
+      payload: {
+        data: {
+          posts: {
+            1: {
+              id: 1,
+            },
+          },
+        },
+      },
+    },
+    addOneWithReplace: {
       payload: {
         data: {
           posts: {
@@ -13,12 +24,29 @@ export default {
         },
       },
     },
-    [tests.entity.deleteOne.key]: {
+    addMultiple: {
       payload: {
-        deletedId: 1,
+        data: {
+          posts: {
+            1: {
+              id: 1,
+            },
+            3: {
+              id: 3,
+            },
+            5: {
+              id: 5,
+            },
+          },
+        },
       },
     },
-    [tests.entity.deleteOneWithoutDeletedId.key]: {
+    deleteOne: {
+      payload: {
+        deletedId: 3,
+      },
+    },
+    deleteOneWithoutDeletedId: {
       payload: {},
     },
   },

@@ -41,28 +41,9 @@ export default Immutable({
     },
   },
   posts: {
-    posts: {
-      1: {
-        id: 1,
-        relationships: {
-          comments: {
-            data: [
-              {
-                id: 1,
-                type: 'comments',
-              },
-            ],
-          },
-          user: {
-            data: {
-              id: 1,
-              type: 'users',
-            },
-          },
-        },
-      },
-    },
-    postIds: [1],
+    post: 1,
+    posts: [3],
+    postIds: [3],
     isLoading: false,
     isLoaded: false,
     isLoadedPostIds: false,

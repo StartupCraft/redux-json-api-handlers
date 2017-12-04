@@ -8,20 +8,21 @@ import initialState from './data/initialState'
 const { posts } = initialState
 
 describe('Entities', () => {
+  // Add single entity
   test(tests.entity.addOne.title, () => {
-    const nextState = createLoadHandler('posts')(
-      posts,
-      actions.entity[tests.entity.addOne.key],
-    )
+    const nextState = createLoadHandler('posts', {
+      singular: true,
+      mapToKey: 'post',
+    })(posts, actions.entity.addOne)
 
     expect(nextState).toEqual(equals.entity[tests.entity.addOne.key])
   })
 
   test(tests.entity.addOneWithoutLoading.title, () => {
-    const nextState = createLoadHandler('posts', { withLoading: false })(
-      posts,
-      actions.entity[tests.entity.addOne.key],
-    )
+    const nextState = createLoadHandler('posts', {
+      withLoading: false,
+      singular: true,
+    })(posts, actions.entity.addOne)
 
     expect(nextState).toEqual(
       equals.entity[tests.entity.addOneWithoutLoading.key],
@@ -30,17 +31,59 @@ describe('Entities', () => {
 
   test(tests.entity.addOneToOtherKey.title, () => {
     const nextState = createLoadHandler('posts', {
-      mapToKey: 'postIds',
-      idsOnly: true,
-    })(posts, actions.entity[tests.entity.addOne.key])
+      mapToKey: 'postId',
+      singular: true,
+    })(posts, actions.entity.addOne)
 
     expect(nextState).toEqual(equals.entity[tests.entity.addOneToOtherKey.key])
   })
 
+  test(tests.entity.addOneWithReplace.title, () => {
+    const nextState = createLoadHandler('posts', {
+      mapToKey: 'post',
+      singular: true,
+    })(posts, actions.entity.addOneWithReplace)
+
+    expect(nextState).toEqual(equals.entity[tests.entity.addOneWithReplace.key])
+  })
+
+  // Add multiple entity
+
+  test(tests.entity.addMultiple.title, () => {
+    const nextState = createLoadHandler('posts')(
+      posts,
+      actions.entity.addMultiple,
+    )
+
+    expect(nextState).toEqual(equals.entity[tests.entity.addMultiple.key])
+  })
+
+  test(tests.entity.addMultipleWithoutLoading.title, () => {
+    const nextState = createLoadHandler('posts', {
+      withLoading: false,
+    })(posts, actions.entity.addMultiple)
+
+    expect(nextState).toEqual(
+      equals.entity[tests.entity.addMultipleWithoutLoading.key],
+    )
+  })
+
+  test(tests.entity.addMultipleToOtherKey.title, () => {
+    const nextState = createLoadHandler('posts', {
+      mapToKey: 'postIds',
+    })(posts, actions.entity.addMultiple)
+
+    expect(nextState).toEqual(
+      equals.entity[tests.entity.addMultipleToOtherKey.key],
+    )
+  })
+
+  // Delete one
+
   test(tests.entity.deleteOne.title, () => {
     const nextState = createDeleteHandler('posts')(
       posts,
-      actions.entity[tests.entity.deleteOne.key],
+      actions.entity.deleteOne,
     )
 
     expect(nextState).toEqual(equals.entity[tests.entity.deleteOne.key])
@@ -49,7 +92,7 @@ describe('Entities', () => {
   test(tests.entity.deleteOneFromOtherKey.title, () => {
     const nextState = createDeleteHandler('postIds')(
       posts,
-      actions.entity[tests.entity.deleteOne.key],
+      actions.entity.deleteOne,
     )
 
     expect(nextState).toEqual(
@@ -60,7 +103,7 @@ describe('Entities', () => {
   test(tests.entity.deleteOneWithoutDeletedId.title, () => {
     const nextState = createDeleteHandler('posts')(
       posts,
-      actions.entity[tests.entity.deleteOneWithoutDeletedId.key],
+      actions.entity.deleteOneWithoutDeletedId,
     )
 
     expect(nextState).toEqual(
