@@ -1,4 +1,4 @@
-/* import { mergers } from '../src/'
+import { mergers } from '../src/'
 
 describe('Mergers', () => {
   test('latest array merger', () => {
@@ -16,4 +16,3 @@ describe('Mergers', () => {
     expect(result).toEqual(undefined)
   })
 })
-*/

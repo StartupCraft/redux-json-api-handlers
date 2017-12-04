@@ -1,4 +1,3 @@
-/*
 import { createRelationAddHandler, createRelationDeleteHandler } from '../src/'
 
 import tests from './tests'
@@ -75,4 +74,3 @@ describe('Relations', () => {
     expect(shiftsState).toEqual(equals.relations[tests.relations.deleteOne.key])
   })
 })
-*/
