@@ -15,6 +15,7 @@ const defaultLoadOptions = {
   withLoading: true,
   singular: false,
   withReplace: false,
+  addToState: {},
 }
 
 type LoadOptionsType = {
@@ -22,13 +23,14 @@ type LoadOptionsType = {
   withLoading?: boolean,
   singular?: boolean,
   withReplace: boolean,
+  addToState: Object, // TODO: add tests
 }
 
 export const createLoadHandler = (
   resourceType: string,
   options: LoadOptionsType,
 ) => (state: any, { payload }: { payload: any }) => {
-  const { mapToKey, withLoading, singular, withReplace } = {
+  const { mapToKey, withLoading, singular, withReplace, addToState } = {
     ...defaultLoadOptions,
     ...options,
   }
@@ -63,9 +65,10 @@ export const createLoadHandler = (
     nextState[`isLoading${addKey}`] = false
   }
 
-  return state.merge(nextState)
+  return state.merge({ ...nextState, ...addToState })
 }
 
+// TODO: add coverage for lines 86, 87, 89
 export const createDeleteHandler = (stateKey: string) => (
   state: any,
   { payload }: { payload: any },

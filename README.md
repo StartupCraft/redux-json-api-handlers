@@ -14,6 +14,7 @@ const options = {
   withLoading: bool,      // default: true, enable/disable loading params
   singular: bool,         // default: false, get first value and store it
   withReplace: bool,      // default: false, replace current values instead of merge it
+  addToState: object,     // default: {}, additional props passed to state
 }
 ```
 
