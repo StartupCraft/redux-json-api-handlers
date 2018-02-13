@@ -10,8 +10,8 @@
     "build": "babel src/ -d lib/",
     "test": "jest",
     "test:cov": "jest --coverage --collectCoverageFrom=src/**/*.js",
-    "lint": "eslint src tests",
-    "lint:fix": "eslint src tests --fix",
+    "lint": "eslint src __tests__",
+    "lint:fix": "eslint src __tests__ --fix",
     "precommit": "lint-staged",
     "prepublish": "yarn test && yarn build"
   },
@@ -37,7 +37,8 @@
       "js",
       "json",
       "es6"
-    ]
+    ],
+    "testMatch": [ "**/__tests__/**/*.test.js?(x)" ]
   },
   "dependencies": {
     "lodash": "^4.17.5",
