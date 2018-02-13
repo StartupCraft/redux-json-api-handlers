@@ -1,4 +1,7 @@
 # redux-json-api-handlers
+[![npm version](https://badge.fury.io/js/redux-json-api-handlers.svg)](https://badge.fury.io/js/redux-json-api-handlers) 
+[![codecov](https://codecov.io/gh/StartupCraft/redux-json-api-handlers/branch/master/graph/badge.svg)](https://codecov.io/gh/StartupCraft/redux-json-api-handlers) 
+[![CircleCI](https://circleci.com/gh/StartupCraft/redux-json-api-handlers/tree/v2.svg?style=svg)](https://circleci.com/gh/StartupCraft/redux-json-api-handlers/tree/v2)
 
 Redux JSON-API handlers V2. New api
 
