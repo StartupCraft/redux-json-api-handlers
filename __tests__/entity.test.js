@@ -121,4 +121,24 @@ describe('Delete entity', () => {
       equals.entity[tests.entity.deleteOneWithoutDeletedId.key],
     )
   })
+
+  test(tests.entity.deleteMany.title, () => {
+    const nextState = createDeleteHandler('posts')(
+      posts,
+      actions.entity.deleteMany,
+    )
+
+    expect(nextState).toEqual(equals.entity[tests.entity.deleteMany.key])
+  })
+
+  test(tests.entity.deleteOneFromSingular.title, () => {
+    const nextState = createDeleteHandler('post')(
+      posts,
+      actions.entity.deleteOneFromSingular,
+    )
+
+    expect(nextState).toEqual(
+      equals.entity[tests.entity.deleteOneFromSingular.key],
+    )
+  })
 })

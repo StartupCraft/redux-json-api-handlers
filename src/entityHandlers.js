@@ -1,14 +1,13 @@
 // @flow
-import without from 'lodash/without'
+import difference from 'lodash/difference'
 import isArray from 'lodash/isArray'
-import reduce from 'lodash/reduce'
 import values from 'lodash/values'
 import uniq from 'lodash/uniq'
 import map from 'lodash/map'
 import get from 'lodash/get'
 import set from 'lodash/set'
 
-import { capitalizeFirstLetter } from './helpers'
+import { capitalizeFirstLetter, nullifyIfIncludes } from './helpers'
 
 const defaultLoadOptions = {
   mapToKey: false,
@@ -73,22 +72,13 @@ export const createDeleteHandler = (stateKey: string) => (
   state: any,
   { payload }: { payload: any },
 ) => {
-  const deletedId = get(payload, 'deletedId')
+  const deletedIds = get(payload, 'deletedIds') || [get(payload, 'deletedId')]
 
   const stateValue = state[stateKey]
 
   return state.merge({
     [stateKey]: isArray(stateValue)
-      ? without(stateValue, deletedId)
-      : reduce(
-          stateValue,
-          (result, value, key) => {
-            if (value.id !== deletedId) {
-              return { ...result, [key]: value }
-            }
-            return { ...result }
-          },
-          {},
-        ),
+      ? difference(stateValue, deletedIds)
+      : nullifyIfIncludes(deletedIds, stateValue),
   })
 }

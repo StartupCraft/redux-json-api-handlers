@@ -60,6 +60,19 @@ describe('Add multiple relations', () => {
   })
 })
 
+describe('Insert into relations array', () => {
+  test(tests.relations.addToArray.title, () => {
+    shiftsState = createRelationAddHandler('employees', 'shift')(
+      shiftsState,
+      actions.relations[tests.relations.addToArray.key],
+    )
+
+    expect(shiftsState).toEqual(
+      equals.relations[tests.relations.addToArray.key],
+    )
+  })
+})
+
 describe('Delete relation', () => {
   test(tests.relations.deleteOneWithoutPayload.title, () => {
     const shifts = createRelationDeleteHandler('shiftsJobs')(data.shifts, {

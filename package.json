@@ -1,6 +1,6 @@
 {
   "name": "redux-json-api-handlers",
-  "version": "2.0.5",
+  "version": "2.1.0",
   "description": "JSON-API entities and relationships handlers",
   "main": "./lib/index.js",
   "repository": "https://github.com/StartupCraft/json-api-handlers.git",
@@ -19,7 +19,7 @@
     "src/**/*.{js,jsx,json,scss,css}": [
       "eslint src tests --fix",
       "prettier --config .prettierrc --write",
-      "jest",
+      "jest --bail --findRelatedTests",
       "git add"
     ]
   },
@@ -40,30 +40,30 @@
     ]
   },
   "dependencies": {
-    "lodash": "^4.17.4",
-    "seamless-immutable": "^7.1.2"
+    "lodash": "^4.17.5",
+    "seamless-immutable": "^7.1.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.0.1",
-    "babel-jest": "^21.2.0",
+    "babel-eslint": "^8.2.1",
+    "babel-jest": "^22.2.2",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-es2016": "^6.24.1",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-latest": "^6.24.1",
     "codecov": "^3.0.0",
-    "eslint": "^4.9.0",
+    "eslint": "^4.17.0",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-config-prettier": "^2.6.0",
-    "eslint-plugin-flowtype": "^2.39.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-flowtype": "^2.43.0",
     "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-prettier": "^2.3.1",
-    "flow-bin": "^0.59.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "flow-bin": "^0.65.0",
     "husky": "^0.14.3",
-    "jest": "^21.2.1",
-    "lint-staged": "^4.3.0",
-    "prettier": "^1.7.4",
-    "regenerator-runtime": "^0.11.0"
+    "jest": "^22.2.2",
+    "lint-staged": "^6.1.0",
+    "prettier": "^1.10.2",
+    "regenerator-runtime": "^0.11.1"
   }
 }

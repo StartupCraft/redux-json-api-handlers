@@ -2,9 +2,13 @@
 
 Redux JSON-API handlers V2. New api
 
+[Data reducer example](DATA_REDUCER.MD)
+
 ## Api methods
 
-### `createLoadHandler(resourceType: string, options: object): nextState`
+### Entity handlers
+
+#### `createLoadHandler(resourceType: string, options: object): nextState`
 Use it for handle success data loading
 
 Options: 
@@ -18,7 +22,7 @@ const options = {
 }
 ```
 
-#### Simple example
+##### Simple example
 Initial state looks like: 
 ```js
 state = {
@@ -45,7 +49,7 @@ state = {
 }
 ```
 
-#### Custom example
+##### Custom example
 Initial state looks like: 
 ```js
 state = {
@@ -74,12 +78,12 @@ state = {
 ```
 
 
-### `createDeleteHandler(stateKey: string): nextState`
+#### `createDeleteHandler(stateKey: string): nextState`
 Use it for handle delete data.
 
-Action payload should have `deletedId` param
+Action payload should have `deletedId` param with singular ID, or `deletedIds` with array of IDS
 
-#### Simple example
+##### Simple example
 Initial state looks like: 
 ```js
 state = {
@@ -93,6 +97,7 @@ Handler:
 const handlers = {
   [DELETE_POST.SUCCESS]: createDeleteHandler('posts')
 }
+// action.payload.deletedId = 1
 ```
 Resulted state looks like: 
 ```js
@@ -103,7 +108,7 @@ state = {
 }
 ```
 
-#### Custom example
+##### Custom key example
 Initial state looks like: 
 ```js
 state = {
@@ -114,16 +119,194 @@ state = {
 ```
 ```js
 const handlers = {
-  [DELETE_POST.SUCCESS]: createDeleteHandler('posts', {
-    mapToKey: 'postIds',
-  })
+  [DELETE_POST.SUCCESS]: createDeleteHandler('postIds')
 }
+// action.payload.deletedId = 2
 ```
 Resulted state looks like: 
 ```js
 state = {
   posts: {
     postIds: [1]
+  }
+}
+```
+
+##### Multiple IDs
+Initial state looks like: 
+```js
+state = {
+  posts: {
+    postIds: [3, 1, 2]
+  }
+}
+```
+```js
+const handlers = {
+  [DELETE_POST.SUCCESS]: createDeleteHandler('postIds')
+}
+// action.payload.deletedIds = [2, 1]
+```
+Resulted state looks like: 
+```js
+state = {
+  posts: {
+    postIds: [3]
+  }
+}
+```
+
+### Relationships handlers
+
+#### `createRelationAddHandler(type: string, relationName: string): nextState`
+Use it for add relation to data reducer. Inject it to `data.<type>` reducer
+
+##### Example
+Initial state looks like: 
+```js
+state = {
+  data: {
+    posts: {
+      1: {
+        id: 1,
+        relationships: {
+          comments: {
+            data: [
+              {
+                id: 1,
+                type: 'comments',
+              },
+            ],
+          },
+        },
+      },
+    },
+  }
+}
+```
+Action looks like:
+```js
+action = {
+  type: CREATE_COMMENT.SUCCESS,
+  payload: {
+    data: {
+      comments: {
+        3: {
+          id: 3,
+          relationships: {
+            post: {
+              data: {
+                id: 1,
+                type: 'posts',
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+}
+```
+
+Handler:
+```js
+const handlers = {
+  [CREATE_COMMENT.SUCCESS]: createRelationAddHandler('comments', 'post')
+}
+```
+Resulted state looks like: 
+```js
+state = {
+  data: {
+    posts: {
+      1: {
+        id: 1,
+        relationships: {
+          comments: {
+            data: [
+              {
+                id: 1,
+                type: 'comments',
+              },
+              {
+                id: 3,
+                type: 'comments',
+              },
+            ],
+          },
+        },
+      },
+    },
+  }
+}
+```
+
+#### `createRelationDeleteHandler(relationsName: string): nextState`
+Use it for delete relation from data reducer. Inject it to `data.<type>` reducer
+
+##### Example
+Initial state looks like: 
+```js
+state = {
+  data: {
+    posts: {
+      1: {
+        id: 1,
+        relationships: {
+          comments: {
+            data: [
+              {
+                id: 1,
+                type: 'comments',
+              },
+              {
+                id: 3,
+                type: 'comments',
+              },
+            ],
+          },
+        },
+      },
+    },
+  }
+}
+```
+Action looks like:
+```js
+action = {
+  type: DELETE_COMMENT.SUCCESS,
+  payload: {
+    deletedId: 3,
+    relationId: 1,
+  },
+}
+```
+
+Handler:
+```js
+const handlers = {
+  [DELETE_COMMENT.SUCCESS]: createRelationDeleteHandler('comments')
+}
+```
+Resulted state looks like: 
+```js
+state = {
+  data: {
+    posts: {
+      1: {
+        id: 1,
+        relationships: {
+          comments: {
+            data: [
+              {
+                id: 1,
+                type: 'comments',
+              },
+            ],
+          },
+        },
+      },
+    },
   }
 }
 ```

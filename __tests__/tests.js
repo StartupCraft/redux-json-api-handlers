@@ -38,11 +38,19 @@ export default {
     },
     deleteOneFromOtherKey: {
       key: 'deleteOneFromOtherKey',
-      title: 'delete singular entiry from other key',
+      title: 'delete singular entity from other key',
     },
     deleteOneWithoutDeletedId: {
       key: 'deleteOneWithoutDeletedId',
       title: 'delete singular entity without deleted id',
+    },
+    deleteMany: {
+      key: 'deleteMany',
+      title: 'delete many entities',
+    },
+    deleteOneFromSingular: {
+      key: 'deleteOneFromSingular',
+      title: 'delete one entity from singular key',
     },
   },
   relations: {
@@ -57,6 +65,10 @@ export default {
     addManyToMany: {
       key: 'addManyToMany',
       title: 'add multiple to multiple',
+    },
+    addToArray: {
+      key: 'addToArray',
+      title: 'add to relations array',
     },
     addOneWithoutPayload: {
       key: 'addOneWithoutPayload',

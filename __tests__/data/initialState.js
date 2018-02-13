@@ -29,21 +29,35 @@ export default Immutable({
         attributes: {
           name: 'A shift',
         },
-        relationships: { shiftsJobs: { data: [] }, jobs: { data: [] } },
+        relationships: {
+          shiftsJobs: {
+            data: [{ id: '1', type: 'shiftsJobs' }],
+          },
+          jobs: { data: [] },
+          employees: {
+            data: [
+              { id: '2', type: 'employees' },
+              { id: '5', type: 'employees' },
+            ],
+          },
+        },
       },
       11: {
         id: '11',
         attributes: {
           name: 'A shift',
         },
-        relationships: { shiftsJobs: { data: [] }, jobs: { data: [] } },
+        relationships: {
+          shiftsJobs: { data: [{ id: '2', type: 'shiftsJobs' }] },
+          jobs: { data: [] },
+        },
       },
     },
   },
   posts: {
     post: 1,
-    posts: [3],
-    postIds: [3],
+    posts: [3, 4, 5],
+    postIds: [1, 2, 3],
     isLoading: false,
     isLoaded: false,
     isLoadedPostIds: false,

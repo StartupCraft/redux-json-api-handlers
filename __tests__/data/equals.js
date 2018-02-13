@@ -12,8 +12,8 @@ export default {
       isLoadingPostIds: false,
       isLoadedPost: true,
       isLoadingPost: false,
-      postIds: [3],
-      posts: [3],
+      postIds: [1, 2, 3],
+      posts: [3, 4, 5],
       post: 1,
     },
     [tests.entity.addOneWithoutLoading.key]: {
@@ -21,7 +21,7 @@ export default {
       isLoading: false,
       isLoadedPostIds: false,
       isLoadingPostIds: false,
-      postIds: [3],
+      postIds: [1, 2, 3],
       posts: 1,
       post: 1,
     },
@@ -32,8 +32,8 @@ export default {
       isLoadingPostIds: false,
       isLoadedPostId: true,
       isLoadingPostId: false,
-      postIds: [3],
-      posts: [3],
+      postIds: [1, 2, 3],
+      posts: [3, 4, 5],
       post: 1,
       postId: 1,
     },
@@ -44,8 +44,8 @@ export default {
       isLoadingPostIds: false,
       isLoadedPost: true,
       isLoadingPost: false,
-      postIds: [3],
-      posts: [3],
+      postIds: [1, 2, 3],
+      posts: [3, 4, 5],
       post: 3,
     },
     // MULTIPLE
@@ -54,8 +54,8 @@ export default {
       isLoading: false,
       isLoadedPostIds: false,
       isLoadingPostIds: false,
-      postIds: [3],
-      posts: [3, 1, 5],
+      postIds: [1, 2, 3],
+      posts: [3, 4, 5, 1],
       post: 1,
     },
     [tests.entity.addMultipleWithReplace.key]: {
@@ -63,7 +63,7 @@ export default {
       isLoading: false,
       isLoadedPostIds: false,
       isLoadingPostIds: false,
-      postIds: [3],
+      postIds: [1, 2, 3],
       posts: [1, 5],
       post: 1,
     },
@@ -72,8 +72,8 @@ export default {
       isLoading: false,
       isLoadedPostIds: false,
       isLoadingPostIds: false,
-      postIds: [3],
-      posts: [3, 1, 5],
+      postIds: [1, 2, 3],
+      posts: [3, 4, 5, 1],
       post: 1,
     },
     [tests.entity.addMultipleToOtherKey.key]: {
@@ -81,8 +81,8 @@ export default {
       isLoading: false,
       isLoadedPostIds: true,
       isLoadingPostIds: false,
-      postIds: [3, 1, 5],
-      posts: [3],
+      postIds: [1, 2, 3, 5],
+      posts: [3, 4, 5],
       post: 1,
     },
     // DELETE
@@ -91,8 +91,8 @@ export default {
       isLoading: false,
       isLoadedPostIds: false,
       isLoadingPostIds: false,
-      postIds: [3],
-      posts: [],
+      postIds: [1, 2, 3],
+      posts: [4, 5],
       post: 1,
     },
     [tests.entity.deleteOneFromOtherKey.key]: {
@@ -100,11 +100,29 @@ export default {
       isLoading: false,
       isLoadedPostIds: false,
       isLoadingPostIds: false,
-      postIds: [],
-      posts: [3],
+      postIds: [1, 2],
+      posts: [3, 4, 5],
       post: 1,
     },
     [tests.entity.deleteOneWithoutDeletedId.key]: initialState.posts,
+    [tests.entity.deleteMany.key]: {
+      isLoaded: false,
+      isLoading: false,
+      isLoadedPostIds: false,
+      isLoadingPostIds: false,
+      postIds: [1, 2, 3],
+      posts: [5],
+      post: 1,
+    },
+    [tests.entity.deleteOneFromSingular.key]: {
+      isLoaded: false,
+      isLoading: false,
+      isLoadedPostIds: false,
+      isLoadingPostIds: false,
+      postIds: [1, 2, 3],
+      posts: [3, 4, 5],
+      post: null,
+    },
   },
   relations: {
     [tests.relations.addOne.key]: {
@@ -172,8 +190,19 @@ export default {
           name: 'A shift',
         },
         relationships: {
-          shiftsJobs: { data: [{ id: '16', type: 'shiftsJobs' }] },
+          shiftsJobs: {
+            data: [
+              { id: '1', type: 'shiftsJobs' },
+              { id: '16', type: 'shiftsJobs' },
+            ],
+          },
           jobs: { data: [] },
+          employees: {
+            data: [
+              { id: '2', type: 'employees' },
+              { id: '5', type: 'employees' },
+            ],
+          },
         },
       },
       11: {
@@ -182,7 +211,51 @@ export default {
           name: 'A shift',
         },
         relationships: {
-          shiftsJobs: { data: [{ id: '17', type: 'shiftsJobs' }] },
+          shiftsJobs: {
+            data: [
+              { id: '2', type: 'shiftsJobs' },
+              { id: '17', type: 'shiftsJobs' },
+            ],
+          },
+          jobs: { data: [] },
+        },
+      },
+    },
+    [tests.relations.addToArray.key]: {
+      10: {
+        id: '10',
+        attributes: {
+          name: 'A shift',
+        },
+        relationships: {
+          shiftsJobs: {
+            data: [
+              { id: '1', type: 'shiftsJobs' },
+              { id: '16', type: 'shiftsJobs' },
+            ],
+          },
+          jobs: { data: [] },
+          employees: {
+            data: [
+              { id: '2', type: 'employees' },
+              { id: '5', type: 'employees' },
+              { id: '4', type: 'employees' },
+            ],
+          },
+        },
+      },
+      11: {
+        id: '11',
+        attributes: {
+          name: 'A shift',
+        },
+        relationships: {
+          shiftsJobs: {
+            data: [
+              { id: '2', type: 'shiftsJobs' },
+              { id: '17', type: 'shiftsJobs' },
+            ],
+          },
           jobs: { data: [] },
         },
       },
@@ -194,8 +267,17 @@ export default {
           name: 'A shift',
         },
         relationships: {
-          shiftsJobs: { data: [] },
+          shiftsJobs: {
+            data: [{ id: '1', type: 'shiftsJobs' }],
+          },
           jobs: { data: [] },
+          employees: {
+            data: [
+              { id: '2', type: 'employees' },
+              { id: '5', type: 'employees' },
+              { id: '4', type: 'employees' },
+            ],
+          },
         },
       },
       11: {
@@ -204,7 +286,12 @@ export default {
           name: 'A shift',
         },
         relationships: {
-          shiftsJobs: { data: [{ id: '17', type: 'shiftsJobs' }] },
+          shiftsJobs: {
+            data: [
+              { id: '2', type: 'shiftsJobs' },
+              { id: '17', type: 'shiftsJobs' },
+            ],
+          },
           jobs: { data: [] },
         },
       },

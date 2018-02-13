@@ -63,6 +63,16 @@ export default {
     deleteOneWithoutDeletedId: {
       payload: {},
     },
+    deleteMany: {
+      payload: {
+        deletedIds: [3, 4],
+      },
+    },
+    deleteOneFromSingular: {
+      payload: {
+        deletedIds: [1],
+      },
+    },
   },
   relations: {
     [tests.relations.addOne.key]: {
@@ -124,7 +134,6 @@ export default {
               relationships: {
                 shift: { data: { id: '10', type: 'shifts' } },
                 job: { data: { id: '1', type: 'jobs' } },
-                employees: { data: [] },
               },
             },
             '17': {
@@ -133,7 +142,21 @@ export default {
               relationships: {
                 shift: { data: { id: '11', type: 'shifts' } },
                 job: { data: { id: '1', type: 'jobs' } },
-                employees: { data: [] },
+              },
+            },
+          },
+        },
+      },
+    },
+
+    [tests.relations.addToArray.key]: {
+      payload: {
+        data: {
+          employees: {
+            '4': {
+              id: '4',
+              relationships: {
+                shift: { data: { id: '10', type: 'shifts' } },
               },
             },
           },
