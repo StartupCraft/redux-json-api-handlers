@@ -18,6 +18,9 @@ jobs:
           name: Test
           command: npm run test
       - run:
+          name: Coverage
+          command: npm run test:cov
+      - run:
           name: Build
           command: npm run build
       - save_cache:
