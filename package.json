@@ -1,6 +1,6 @@
 {
   "name": "redux-json-api-handlers",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "JSON-API entities and relationships handlers",
   "main": "./lib/index.js",
   "repository": "https://github.com/StartupCraft/json-api-handlers.git",
@@ -38,7 +38,9 @@
       "json",
       "es6"
     ],
-    "testMatch": [ "**/__tests__/**/*.test.js?(x)" ]
+    "testMatch": [
+      "**/__tests__/**/*.test.js?(x)"
+    ]
   },
   "dependencies": {
     "lodash": "^4.17.5",
