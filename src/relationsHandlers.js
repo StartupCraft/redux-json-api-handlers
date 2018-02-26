@@ -14,7 +14,7 @@ const extractRelationsIds = relationName => (relationsIds, current) => {
   return hasRelId ? relationsIds : [...relationsIds, relationId]
 }
 
-export const createRelationAddHandler = (type, relationName) => (
+export const createRelationAddHandler = (type, relationName, options) => (
   state,
   { payload },
 ) => {
@@ -24,6 +24,9 @@ export const createRelationAddHandler = (type, relationName) => (
 
   const createdRelations = Object.values(dataType)
   const updatedRelativesMap = new Map()
+
+  const mapToKey = get(options, 'mapToKey') || type
+  const singular = get(options, 'singular') === true
 
   createdRelations
     .reduce(extractRelationsIds(relationName), []) // collect affected relatives ids
@@ -41,8 +44,8 @@ export const createRelationAddHandler = (type, relationName) => (
       ...relative,
       relationships: {
         // Relationships spread omitted since lodash.merge preserves other rel types.
-        [type]: {
-          data: [...existedRelations, newRelation],
+        [mapToKey]: {
+          data: singular ? newRelation : [...existedRelations, newRelation],
         },
       },
     }
