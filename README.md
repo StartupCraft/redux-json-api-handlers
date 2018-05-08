@@ -1,5 +1,5 @@
 # redux-json-api-handlers
-[![npm version](https://badge.fury.io/js/redux-json-api-handlers.svg)](https://badge.fury.io/js/redux-json-api-handlers) 
+[![npm version](https://badge.fury.io/js/redux-json-api-handlers.svg)](https://badge.fury.io/js/redux-json-api-handlers)
 [![codecov](https://codecov.io/gh/StartupCraft/redux-json-api-handlers/branch/master/graph/badge.svg)](https://codecov.io/gh/StartupCraft/redux-json-api-handlers)
 [![CircleCI](https://circleci.com/gh/StartupCraft/redux-json-api-handlers/tree/v2.svg?style=svg)](https://circleci.com/gh/StartupCraft/redux-json-api-handlers/tree/v2)
 
@@ -14,7 +14,7 @@ Redux JSON-API handlers V2. New api
 #### `createLoadHandler(resourceType: string, options: object): nextState`
 Use it for handle success data loading
 
-Options: 
+Options:
 ```js
 const options = {
   mapToKey: bool|string,  // default: false, map result to custom reducer key
@@ -26,7 +26,7 @@ const options = {
 ```
 
 ##### Simple example
-Initial state looks like: 
+Initial state looks like:
 ```js
 state = {
   posts: {
@@ -41,7 +41,7 @@ const handlers = {
   [LOAD_POSTS.SUCCESS]: createLoadHandler('posts')
 }
 ```
-Resulted state looks like: 
+Resulted state looks like:
 ```js
 state = {
   posts: {
@@ -53,7 +53,7 @@ state = {
 ```
 
 ##### Custom example
-Initial state looks like: 
+Initial state looks like:
 ```js
 state = {
   posts: {
@@ -69,7 +69,7 @@ const handlers = {
   [LOAD_POSTS.SUCCESS]: createLoadHandler('posts', { mapToKey: 'post', singular: true })
 }
 ```
-Resulted state looks like: 
+Resulted state looks like:
 ```js
 state = {
   posts: {
@@ -81,13 +81,13 @@ state = {
 ```
 
 
-#### `createDeleteHandler(stateKey: string): nextState`
+#### `createDeleteHandler(stateKey: string, options: object): nextState`
 Use it for handle delete data.
 
 Action payload should have `deletedId` param with singular ID, or `deletedIds` with array of IDS
 
 ##### Simple example
-Initial state looks like: 
+Initial state looks like:
 ```js
 state = {
   posts: {
@@ -102,7 +102,7 @@ const handlers = {
 }
 // action.payload.deletedId = 1
 ```
-Resulted state looks like: 
+Resulted state looks like:
 ```js
 state = {
   posts: {
@@ -112,7 +112,7 @@ state = {
 ```
 
 ##### Custom key example
-Initial state looks like: 
+Initial state looks like:
 ```js
 state = {
   posts: {
@@ -126,7 +126,7 @@ const handlers = {
 }
 // action.payload.deletedId = 2
 ```
-Resulted state looks like: 
+Resulted state looks like:
 ```js
 state = {
   posts: {
@@ -136,7 +136,7 @@ state = {
 ```
 
 ##### Multiple IDs
-Initial state looks like: 
+Initial state looks like:
 ```js
 state = {
   posts: {
@@ -146,15 +146,20 @@ state = {
 ```
 ```js
 const handlers = {
-  [DELETE_POST.SUCCESS]: createDeleteHandler('postIds')
+  [DELETE_POST.SUCCESS]: createDeleteHandler('postIds', {
+    addToState: {
+      isDeleted: true
+    }
+  })
 }
 // action.payload.deletedIds = [2, 1]
 ```
-Resulted state looks like: 
+Resulted state looks like:
 ```js
 state = {
   posts: {
-    postIds: [3]
+    postIds: [3],
+    isDeleted: true
   }
 }
 ```
@@ -165,7 +170,7 @@ state = {
 Use it for add relation to data reducer. Inject it to `data.<type>` reducer
 
 ##### Example
-Initial state looks like: 
+Initial state looks like:
 ```js
 state = {
   data: {
@@ -217,7 +222,7 @@ const handlers = {
   [CREATE_COMMENT.SUCCESS]: createRelationAddHandler('comments', 'post')
 }
 ```
-Resulted state looks like: 
+Resulted state looks like:
 ```js
 state = {
   data: {
@@ -248,7 +253,7 @@ state = {
 Use it for delete relation from data reducer. Inject it to `data.<type>` reducer
 
 ##### Example
-Initial state looks like: 
+Initial state looks like:
 ```js
 state = {
   data: {
@@ -291,7 +296,7 @@ const handlers = {
   [DELETE_COMMENT.SUCCESS]: createRelationDeleteHandler('comments')
 }
 ```
-Resulted state looks like: 
+Resulted state looks like:
 ```js
 state = {
   data: {

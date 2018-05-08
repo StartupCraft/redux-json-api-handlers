@@ -123,6 +123,16 @@ export default {
       posts: [3, 4, 5],
       post: null,
     },
+    [tests.entity.deleteOneWithAdditional.key]: {
+      isDeleted: true,
+      isLoaded: false,
+      isLoading: false,
+      isLoadedPostIds: false,
+      isLoadingPostIds: false,
+      postIds: [1, 2, 3],
+      posts: [4, 5],
+      post: 1,
+    },
   },
   relations: {
     [tests.relations.addOne.key]: {

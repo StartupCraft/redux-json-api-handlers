@@ -141,4 +141,15 @@ describe('Delete entity', () => {
       equals.entity[tests.entity.deleteOneFromSingular.key],
     )
   })
+
+  test(tests.entity.deleteOneWithAdditional.title, () => {
+    const nextState = createDeleteHandler('posts', {
+      addToState: {
+        isDeleted: true,
+      },
+    })(posts, actions.entity.deleteOne)
+    expect(nextState).toEqual(
+      equals.entity[tests.entity.deleteOneWithAdditional.key],
+    )
+  })
 })

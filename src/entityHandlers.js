@@ -25,6 +25,14 @@ type LoadOptionsType = {
   addToState: Object, // TODO: add tests
 }
 
+const defaultDeleteOptions = {
+  addToState: {},
+}
+
+type DeleteOptionsType = {
+  addToState: Object,
+}
+
 export const createLoadHandler = (
   resourceType: string,
   options: LoadOptionsType,
@@ -68,10 +76,14 @@ export const createLoadHandler = (
 }
 
 // TODO: add coverage for lines 86, 87, 89
-export const createDeleteHandler = (stateKey: string) => (
-  state: any,
-  { payload }: { payload: any },
-) => {
+export const createDeleteHandler = (
+  stateKey: string,
+  options: DeleteOptionsType,
+) => (state: any, { payload }: { payload: any }) => {
+  const { addToState } = {
+    ...defaultDeleteOptions,
+    ...options,
+  }
   const deletedIds = get(payload, 'deletedIds') || [get(payload, 'deletedId')]
 
   const stateValue = state[stateKey]
@@ -80,5 +92,6 @@ export const createDeleteHandler = (stateKey: string) => (
     [stateKey]: isArray(stateValue)
       ? difference(stateValue, deletedIds)
       : nullifyIfIncludes(deletedIds, stateValue),
+    ...addToState,
   })
 }

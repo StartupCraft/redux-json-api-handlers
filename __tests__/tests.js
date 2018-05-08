@@ -52,6 +52,10 @@ export default {
       key: 'deleteOneFromSingular',
       title: 'delete one entity from singular key',
     },
+    deleteOneWithAdditional: {
+      key: 'deleteOneWithAdditional',
+      title: 'delete one entity with additional store keys',
+    },
   },
   relations: {
     addOne: {
