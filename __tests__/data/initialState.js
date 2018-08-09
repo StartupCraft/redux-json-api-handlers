@@ -56,11 +56,12 @@ export default Immutable({
   },
   posts: {
     post: 1,
-    posts: [3, 4, 5],
+    posts: [5, 3, 4],
     postIds: [1, 2, 3],
     isLoading: false,
     isLoaded: false,
     isLoadedPostIds: false,
     isLoadingPostIds: false,
+    sorting: [],
   },
 })

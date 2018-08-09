@@ -7,7 +7,11 @@ import map from 'lodash/map'
 import get from 'lodash/get'
 import set from 'lodash/set'
 
-import { capitalizeFirstLetter, nullifyIfIncludes } from './helpers'
+import {
+  capitalizeFirstLetter,
+  nullifyIfIncludes,
+  keepSortByKey,
+} from './helpers'
 
 const defaultLoadOptions = {
   mapToKey: false,
@@ -15,6 +19,7 @@ const defaultLoadOptions = {
   singular: false,
   withReplace: false,
   addToState: {},
+  keepSorting: false,
 }
 
 type LoadOptionsType = {
@@ -23,6 +28,7 @@ type LoadOptionsType = {
   singular?: boolean,
   withReplace: boolean,
   addToState: Object, // TODO: add tests
+  keepSorting: boolean, // TODO: add tests
 }
 
 const defaultDeleteOptions = {
@@ -36,13 +42,23 @@ type DeleteOptionsType = {
 export const createLoadHandler = (
   resourceType: string,
   options: LoadOptionsType,
-) => (state: any, { payload }: { payload: any }) => {
-  const { mapToKey, withLoading, singular, withReplace, addToState } = {
+) => (state: any, { payload, meta }: { payload: any, meta: any }) => {
+  const {
+    mapToKey,
+    withLoading,
+    singular,
+    withReplace,
+    addToState,
+    keepSorting,
+  } = {
     ...defaultLoadOptions,
     ...options,
   }
 
-  const payloadResource = get(payload, `data.${resourceType}`, false)
+  const data = get(payload, `data.${resourceType}`, false)
+
+  const payloadResource =
+    keepSorting && !singular ? keepSortByKey(meta, data, 'id') : data
 
   const mappedResourceType = mapToKey || resourceType
 

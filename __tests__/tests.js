@@ -56,6 +56,10 @@ export default {
       key: 'deleteOneWithAdditional',
       title: 'delete one entity with additional store keys',
     },
+    keepSorting: {
+      key: 'keepSorting',
+      title: 'keep sorting from meta',
+    },
   },
   relations: {
     addOne: {
