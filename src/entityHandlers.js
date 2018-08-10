@@ -42,7 +42,7 @@ type DeleteOptionsType = {
 export const createLoadHandler = (
   resourceType: string,
   options: LoadOptionsType,
-) => (state: any, { payload, meta }: { payload: any, meta: any }) => {
+) => (state: any, { payload }: { payload: any }) => {
   const {
     mapToKey,
     withLoading,
@@ -56,9 +56,10 @@ export const createLoadHandler = (
   }
 
   const data = get(payload, `data.${resourceType}`, false)
+  const meta = get(payload, 'meta', false)
 
   const payloadResource =
-    keepSorting && !singular ? keepSortByKey(meta, data, 'id') : data
+    keepSorting && !singular && meta ? keepSortByKey(meta, data, 'id') : data
 
   const mappedResourceType = mapToKey || resourceType
 

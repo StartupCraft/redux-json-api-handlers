@@ -88,10 +88,10 @@ export default {
             },
           },
         },
-      },
-      meta: {
-        '/sorting/some': {
-          data: [{ id: 5 }, { id: 1 }, { id: 3 }],
+        meta: {
+          '/sorting/some': {
+            data: [{ id: 5 }, { id: 1 }, { id: 3 }],
+          },
         },
       },
     },
