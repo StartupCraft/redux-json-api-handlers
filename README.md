@@ -319,3 +319,11 @@ state = {
   }
 }
 ```
+
+
+### Entities helpers
+
+#### denormalize
+#### getEntities
+
+Need to add docs & tests
