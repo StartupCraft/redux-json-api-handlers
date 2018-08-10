@@ -78,19 +78,19 @@ export default {
         data: {
           sorting: {
             1: {
-              id: 1,
+              id: '1',
             },
             3: {
-              id: 3,
+              id: '3',
             },
             5: {
-              id: 5,
+              id: '5',
             },
           },
-        },
-        meta: {
-          '/sorting/some': {
-            data: [{ id: 5 }, { id: 1 }, { id: 3 }],
+          meta: {
+            '/sorting/some': {
+              data: [{ id: '5' }, { id: '1' }, { id: '3' }],
+            },
           },
         },
       },

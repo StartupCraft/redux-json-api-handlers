@@ -56,7 +56,7 @@ export const createLoadHandler = (
   }
 
   const data = get(payload, `data.${resourceType}`, false)
-  const meta = get(payload, 'meta', false)
+  const meta = get(payload, 'data.meta', false)
 
   const payloadResource =
     keepSorting && !singular && meta ? keepSortByKey(meta, data, 'id') : data

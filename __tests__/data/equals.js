@@ -84,7 +84,7 @@ export default {
     [tests.entity.keepSorting.key]: {
       ...initialPosts,
       isLoaded: true,
-      sorting: [5, 1, 3],
+      sorting: ['5', '1', '3'],
     },
   },
   relations: {
