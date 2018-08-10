@@ -19,7 +19,7 @@ const defaultLoadOptions = {
   singular: false,
   withReplace: false,
   addToState: {},
-  keepSorting: false,
+  keepSorting: true,
 }
 
 type LoadOptionsType = {

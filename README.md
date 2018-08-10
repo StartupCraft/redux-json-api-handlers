@@ -22,7 +22,7 @@ const options = {
   singular: bool,         // default: false, get first value and store it
   withReplace: bool,      // default: false, replace current values instead of merge it
   addToState: object,     // default: {}, additional props passed to state
-  keepSorting: bool,      // default: false, keep data sorting from meta
+  keepSorting: bool,      // default: true, keep data sorting from meta
 }
 ```
 
