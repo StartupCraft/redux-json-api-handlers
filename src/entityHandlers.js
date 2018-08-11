@@ -42,7 +42,7 @@ type DeleteOptionsType = {
 export const createLoadHandler = (
   resourceType: string,
   options: LoadOptionsType,
-) => (state: any, { payload }: { payload: any }) => {
+) => (state: any, { payload, paged = null }: { payload: any, paged: any }) => {
   const {
     mapToKey,
     withLoading,
@@ -87,6 +87,10 @@ export const createLoadHandler = (
     const addKey = mapToKey ? capitalizeFirstLetter(mapToKey) : ''
     nextState[`isLoaded${addKey}`] = true
     nextState[`isLoading${addKey}`] = false
+  }
+
+  if (paged) {
+    nextState.paged = paged
   }
 
   return state.merge({ ...nextState, ...addToState })
