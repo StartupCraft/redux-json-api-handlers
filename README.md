@@ -325,5 +325,6 @@ state = {
 
 #### denormalize
 #### getEntities
+#### createFields
 
 Need to add docs & tests

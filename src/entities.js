@@ -39,3 +39,14 @@ export const getEntities = (
 
     return all
   })
+
+export const createFields = (type, field) => {
+  const entity = field || type
+  const addKey = !field || field === type ? '' : capitalizeFirstLetter(field)
+
+  return {
+    [entity]: null,
+    [`isLoading${addKey}`]: false,
+    [`isLoaded${addKey}`]: false,
+  }
+}
