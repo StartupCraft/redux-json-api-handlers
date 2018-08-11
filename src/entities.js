@@ -5,6 +5,8 @@ import map from 'lodash/map'
 import isArray from 'lodash/isArray'
 import isEmpty from 'lodash/isEmpty'
 
+import { createLoadHandler } from './entityHandlers'
+
 import { capitalizeFirstLetter } from './helpers'
 
 export const denormalize = (entities, type, id) =>
@@ -48,5 +50,28 @@ export const createFields = (type, field) => {
     [entity]: null,
     [`isLoading${addKey}`]: false,
     [`isLoaded${addKey}`]: false,
+  }
+}
+
+export const createReducerHandlers = (
+  type,
+  field,
+  actionTypes,
+  handlerOptions = null,
+) => {
+  const addKey = !field || field === type ? '' : capitalizeFirstLetter(field)
+
+  return {
+    [actionTypes.REQUEST]: state =>
+      state.merge({
+        [`isLoading${addKey}`]: true,
+        [`isLoaded${addKey}`]: false,
+      }),
+    [actionTypes.SUCCESS]: createLoadHandler(type, handlerOptions),
+    [actionTypes.FAILURE]: state =>
+      state.merge({
+        [`isLoading${addKey}`]: false,
+        [`isLoaded${addKey}`]: false,
+      }),
   }
 }

@@ -326,5 +326,6 @@ state = {
 #### denormalize
 #### getEntities
 #### createFields
+#### createReducerHandlers
 
 Need to add docs & tests

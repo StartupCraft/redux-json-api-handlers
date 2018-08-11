@@ -6,7 +6,12 @@ import {
 
 import mergers from './mergers'
 
-import { getEntities, denormalize, createFields } from './entities'
+import {
+  getEntities,
+  denormalize,
+  createFields,
+  createReducerHandlers,
+} from './entities'
 
 import { getFirstEntity } from './helpers'
 
@@ -19,5 +24,6 @@ export {
   getEntities,
   denormalize,
   createFields,
+  createReducerHandlers,
   getFirstEntity,
 }
