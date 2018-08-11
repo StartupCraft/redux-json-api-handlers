@@ -1,6 +1,7 @@
 import build from 'redux-object'
 import { createSelector } from 'reselect'
 
+import get from 'lodash/get'
 import map from 'lodash/map'
 import isArray from 'lodash/isArray'
 import isEmpty from 'lodash/isEmpty'
@@ -55,10 +56,10 @@ export const createFields = (type, field) => {
 
 export const createReducerHandlers = (
   type,
-  field,
   actionTypes,
   handlerOptions = null,
 ) => {
+  const field = get(handlerOptions, 'mapToKey')
   const addKey = !field || field === type ? '' : capitalizeFirstLetter(field)
 
   return {
